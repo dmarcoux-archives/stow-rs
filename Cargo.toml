@@ -1,0 +1,7 @@
+[package]
+name = "stow-rs"
+version = "0.1.0"
+authors = ["Dany Marcoux <dmarcoux@posteo.de>"]
+edition = "2018"
+
+[dependencies]
