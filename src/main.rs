@@ -24,6 +24,7 @@ fn symlink(source: &str, destination: &str) -> std::io::Result<()> {
 
     let destination = target_dir.join(destination);
 
+    // TODO: Handle errors
     fs::symlink(source, destination)?;
 
     Ok(())
