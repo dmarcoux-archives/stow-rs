@@ -2,8 +2,11 @@
 authors = ["Dany Marcoux <dmarcoux@posteo.de>"]
 description = "Symlink farm manager"
 edition = "2018"
+homepage = "https://github.com/dmarcoux/stow-rs"
 license = "GPL-3.0-only"
 name = "stow-rs"
+readme = "README.md"
+repository = "https://github.com/dmarcoux/stow-rs"
 version = "0.1.0"
 
 [dependencies]
