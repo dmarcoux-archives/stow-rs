@@ -5,3 +5,4 @@ authors = ["Dany Marcoux <dmarcoux@posteo.de>"]
 edition = "2018"
 
 [dependencies]
+clap = "2.32.0"
