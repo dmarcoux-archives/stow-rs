@@ -1,5 +1,6 @@
 [package]
 authors = ["Dany Marcoux <dmarcoux@posteo.de>"]
+description = "Symlink farm manager"
 edition = "2018"
 name = "stow-rs"
 version = "0.1.0"
