@@ -1,8 +1,18 @@
+extern crate clap;
+
+use clap::App;
 use std::env;
 use std::os::unix::fs;
 
 fn main() -> std::io::Result<()> {
-    symlink("README.md", "symlinked_README.md")
+    App::new("stow")
+        .version(env!("CARGO_PKG_VERSION"))
+        .about(env!("CARGO_PKG_DESCRIPTION"))
+        .get_matches();
+
+    symlink("README.md", "symlinked_README.md")?;
+
+    Ok(())
 }
 
 fn symlink(source: &str, destination: &str) -> std::io::Result<()> {
