@@ -1,31 +1,50 @@
 extern crate clap;
 
-use clap::App;
+use clap::{App, Arg};
 use std::env;
 use std::os::unix::fs;
 
 fn main() -> std::io::Result<()> {
-    App::new("stow")
+    let matches = App::new("stow")
         .version(env!("CARGO_PKG_VERSION"))
         .about(env!("CARGO_PKG_DESCRIPTION"))
+        .arg(Arg::with_name("PACKAGE")
+             .help("Package(s) to stow. A package is a directory containing a collection of related files and directories.")
+             .index(1)
+             .multiple(true)
+             .required(true)
+             .takes_value(true))
         .get_matches();
 
-    symlink("README.md", "symlinked_README.md")?;
+    let packages: Vec<&str> = matches.values_of("PACKAGE").unwrap().collect();
+    for package in packages {
+        symlink(package)?;
+    }
 
     Ok(())
 }
 
-fn symlink(source: &str, destination: &str) -> std::io::Result<()> {
-    let current_dir = env::current_dir()?;
+// TODO: Handle errors
+fn symlink(package: &str) -> std::io::Result<()> {
+    // TODO: Handle different stow dir with option and environment variable
+    // TODO: Get the stow dir once instead of always initializing it here
+    let stow_dir = env::current_dir()?;
+
+    let package_dir = stow_dir.join(package);
     // TODO: Handle panic from .unwrap() and instead match
-    let target_dir = current_dir.parent().unwrap();
+    // TODO: Handle different target dir with option
+    // TODO: Get the target dir once instead of always initializing it here
+    let target_dir = stow_dir.parent().unwrap();
 
-    let source = current_dir.join(source);
+    for entry in package_dir.read_dir()? {
+        let entry = entry?.file_name();
 
-    let destination = target_dir.join(destination);
+        let source = package_dir.join(&entry);
 
-    // TODO: Handle errors
-    fs::symlink(source, destination)?;
+        let destination = target_dir.join(entry);
+
+        fs::symlink(source, destination)?;
+    };
 
     Ok(())
 }
