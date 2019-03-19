@@ -9,6 +9,7 @@ fn main() -> std::io::Result<()> {
         .version(env!("CARGO_PKG_VERSION"))
         .about(env!("CARGO_PKG_DESCRIPTION"))
         .setting(AppSettings::ArgRequiredElseHelp)
+        .setting(AppSettings::ColoredHelp)
         .arg(Arg::with_name("PACKAGE")
              .help("Package(s) to stow. A package is a directory containing a collection of related files and directories.")
              .index(1)
