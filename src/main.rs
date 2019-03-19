@@ -44,7 +44,7 @@ fn symlink(package: &str) -> std::io::Result<()> {
         let destination = target_dir.join(entry);
 
         fs::symlink(source, destination)?;
-    };
+    }
 
     Ok(())
 }
