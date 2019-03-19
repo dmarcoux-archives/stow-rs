@@ -1,6 +1,6 @@
 extern crate clap;
 
-use clap::{App, Arg};
+use clap::{App, AppSettings, Arg};
 use std::env;
 use std::os::unix::fs;
 
@@ -8,6 +8,7 @@ fn main() -> std::io::Result<()> {
     let matches = App::new("stow")
         .version(env!("CARGO_PKG_VERSION"))
         .about(env!("CARGO_PKG_DESCRIPTION"))
+        .setting(AppSettings::ArgRequiredElseHelp)
         .arg(Arg::with_name("PACKAGE")
              .help("Package(s) to stow. A package is a directory containing a collection of related files and directories.")
              .index(1)
