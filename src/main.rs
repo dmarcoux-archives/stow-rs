@@ -29,7 +29,7 @@ fn main() -> std::io::Result<()> {
         if matches.is_present("unstow") {
             unstow(package)?;
         } else {
-            symlink(package)?;
+            stow(package)?;
         }
     }
 
@@ -67,7 +67,7 @@ fn unstow(package: &str) -> std::io::Result<()> {
 }
 
 // TODO: Handle errors
-fn symlink(package: &str) -> std::io::Result<()> {
+fn stow(package: &str) -> std::io::Result<()> {
     // TODO: Handle different stow dir with option and environment variable
     // TODO: Get the stow dir once instead of always initializing it here
     let stow_dir = env::current_dir()?;
